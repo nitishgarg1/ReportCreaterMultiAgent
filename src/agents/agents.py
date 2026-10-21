@@ -4,6 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from src.tools.tools import web_search, scrape_url
 from dotenv import load_dotenv
+from datetime import date
 
 load_dotenv()
 
@@ -13,12 +14,14 @@ llm=ChatGoogleGenerativeAI(
 )
 
 
+TODAY = date.today().strftime("%B %d, %Y")
+
 # 1st Agent : Search Agent
 def build_search_agent():
     return create_agent(
         model= llm,
         tools=[web_search],
-       
+       system_prompt=f"Today's date is {TODAY}. Always prioritise the most recent information.",
     )
 
 # 2nd Agent : Reader Agent
