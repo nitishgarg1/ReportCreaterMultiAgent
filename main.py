@@ -1,4 +1,10 @@
-from src.tools.tools import web_search
+from src.agents.agents import build_search_agent
 from rich import print
-res=web_search("latest news on ai")
+
+agent=build_search_agent()
+
+res=agent.invoke({
+    "messages":"give me latest info about ai"
+})
+
 print(res)
